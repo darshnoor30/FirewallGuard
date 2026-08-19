@@ -1,0 +1,10 @@
+# FirewallGuard defensive lab - hardened iptables-save baseline
+*filter
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [0:0]
+-A INPUT -i lo -j ACCEPT
+-A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+-A INPUT -p tcp -s 10.0.0.0/24 --dport 22 -m comment --comment "SSH from admin subnet" -j ACCEPT
+-A INPUT -p tcp -s 0.0.0.0/0 --dport 443 -m comment --comment "Public HTTPS" -j ACCEPT
+COMMIT

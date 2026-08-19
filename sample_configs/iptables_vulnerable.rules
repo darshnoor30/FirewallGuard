@@ -1,0 +1,11 @@
+# FirewallGuard defensive lab - intentionally vulnerable iptables-save sample
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [0:0]
+-A INPUT -p tcp -s 0.0.0.0/0 --dport 22 -m comment --comment "Public SSH" -j ACCEPT
+-A INPUT -p tcp -s 0.0.0.0/0 --dport 3389 -m comment --comment "Public RDP" -j ACCEPT
+-A INPUT -p tcp -s 0.0.0.0/0 --dport 3306 -m comment --comment "Public MySQL" -j ACCEPT
+-A INPUT -p tcp -s 0.0.0.0/0 --dport 445 -m comment --comment "Public SMB" -j ACCEPT
+-A INPUT -p tcp -s 0.0.0.0/0 --dport 23 -m comment --comment "Public Telnet" -j ACCEPT
+COMMIT

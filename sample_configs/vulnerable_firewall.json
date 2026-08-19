@@ -1,0 +1,70 @@
+{
+  "firewall_name": "Vulnerable Firewall",
+
+  "rules": [
+    {
+      "rule_id": 1,
+      "name": "Allow All Traffic",
+      "action": "allow",
+      "protocol": "any",
+      "source": "any",
+      "destination": "any",
+      "port": "any",
+      "enabled": true,
+      "chain": "INPUT",
+      "description": "Dangerous any-any rule"
+    },
+
+    {
+      "rule_id": 2,
+      "name": "Open SSH",
+      "action": "allow",
+      "protocol": "tcp",
+      "source": "any",
+      "destination": "192.168.1.10",
+      "port": "22",
+      "enabled": true,
+      "chain": "INPUT",
+      "description": "SSH exposed to internet"
+    },
+
+    {
+      "rule_id": 3,
+      "name": "Open RDP",
+      "action": "allow",
+      "protocol": "tcp",
+      "source": "any",
+      "destination": "192.168.1.20",
+      "port": "3389",
+      "enabled": true,
+      "chain": "INPUT",
+      "description": "RDP exposed to internet"
+    },
+
+    {
+      "rule_id": 4,
+      "name": "MySQL Database",
+      "action": "allow",
+      "protocol": "tcp",
+      "source": "any",
+      "destination": "192.168.1.30",
+      "port": "3306",
+      "enabled": true,
+      "chain": "INPUT",
+      "description": "Database exposed"
+    },
+
+    {
+      "rule_id": 5,
+      "name": "Disabled Rule",
+      "action": "allow",
+      "protocol": "tcp",
+      "source": "10.0.0.0/8",
+      "destination": "192.168.1.40",
+      "port": "443",
+      "enabled": false,
+      "chain": "INPUT",
+      "description": "Old disabled rule"
+    }
+  ]
+}

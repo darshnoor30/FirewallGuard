@@ -1,0 +1,518 @@
+{
+  "audit_id": "FG-DCBBED2B7223",
+  "generated_at": "2026-08-19T11:15:03+00:00",
+  "source_name": "vulnerable_firewall.json",
+  "source_format": "json",
+  "input_sha256": "dcbbed2b7223cd0e619fbd950e8e04df243a70f6f99461b3527ac84c087e2de5",
+  "rules": [
+    {
+      "rule_id": "1",
+      "name": "Allow All Traffic",
+      "action": "allow",
+      "protocol": "any",
+      "source": "any",
+      "destination": "any",
+      "port": "any",
+      "enabled": true,
+      "description": "Dangerous any-any rule",
+      "chain": "INPUT",
+      "direction": "inbound",
+      "kind": "rule",
+      "table": "filter",
+      "in_interface": "any",
+      "out_interface": "any",
+      "connection_states": [],
+      "raw": "{\"action\": \"allow\", \"chain\": \"INPUT\", \"description\": \"Dangerous any-any rule\", \"destination\": \"any\", \"enabled\": true, \"name\": \"Allow All Traffic\", \"port\": \"any\", \"protocol\": \"any\", \"rule_id\": 1, \"source\": \"any\"}",
+      "line_number": 1
+    },
+    {
+      "rule_id": "2",
+      "name": "Open SSH",
+      "action": "allow",
+      "protocol": "tcp",
+      "source": "any",
+      "destination": "192.168.1.10",
+      "port": "22",
+      "enabled": true,
+      "description": "SSH exposed to internet",
+      "chain": "INPUT",
+      "direction": "inbound",
+      "kind": "rule",
+      "table": "filter",
+      "in_interface": "any",
+      "out_interface": "any",
+      "connection_states": [],
+      "raw": "{\"action\": \"allow\", \"chain\": \"INPUT\", \"description\": \"SSH exposed to internet\", \"destination\": \"192.168.1.10\", \"enabled\": true, \"name\": \"Open SSH\", \"port\": \"22\", \"protocol\": \"tcp\", \"rule_id\": 2, \"source\": \"any\"}",
+      "line_number": 2
+    },
+    {
+      "rule_id": "3",
+      "name": "Open RDP",
+      "action": "allow",
+      "protocol": "tcp",
+      "source": "any",
+      "destination": "192.168.1.20",
+      "port": "3389",
+      "enabled": true,
+      "description": "RDP exposed to internet",
+      "chain": "INPUT",
+      "direction": "inbound",
+      "kind": "rule",
+      "table": "filter",
+      "in_interface": "any",
+      "out_interface": "any",
+      "connection_states": [],
+      "raw": "{\"action\": \"allow\", \"chain\": \"INPUT\", \"description\": \"RDP exposed to internet\", \"destination\": \"192.168.1.20\", \"enabled\": true, \"name\": \"Open RDP\", \"port\": \"3389\", \"protocol\": \"tcp\", \"rule_id\": 3, \"source\": \"any\"}",
+      "line_number": 3
+    },
+    {
+      "rule_id": "4",
+      "name": "MySQL Database",
+      "action": "allow",
+      "protocol": "tcp",
+      "source": "any",
+      "destination": "192.168.1.30",
+      "port": "3306",
+      "enabled": true,
+      "description": "Database exposed",
+      "chain": "INPUT",
+      "direction": "inbound",
+      "kind": "rule",
+      "table": "filter",
+      "in_interface": "any",
+      "out_interface": "any",
+      "connection_states": [],
+      "raw": "{\"action\": \"allow\", \"chain\": \"INPUT\", \"description\": \"Database exposed\", \"destination\": \"192.168.1.30\", \"enabled\": true, \"name\": \"MySQL Database\", \"port\": \"3306\", \"protocol\": \"tcp\", \"rule_id\": 4, \"source\": \"any\"}",
+      "line_number": 4
+    },
+    {
+      "rule_id": "5",
+      "name": "Disabled Rule",
+      "action": "allow",
+      "protocol": "tcp",
+      "source": "10.0.0.0/8",
+      "destination": "192.168.1.40",
+      "port": "443",
+      "enabled": false,
+      "description": "Old disabled rule",
+      "chain": "INPUT",
+      "direction": "inbound",
+      "kind": "rule",
+      "table": "filter",
+      "in_interface": "any",
+      "out_interface": "any",
+      "connection_states": [],
+      "raw": "{\"action\": \"allow\", \"chain\": \"INPUT\", \"description\": \"Old disabled rule\", \"destination\": \"192.168.1.40\", \"enabled\": false, \"name\": \"Disabled Rule\", \"port\": \"443\", \"protocol\": \"tcp\", \"rule_id\": 5, \"source\": \"10.0.0.0/8\"}",
+      "line_number": 5
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "UNRESTRICTED_ALLOW:1",
+      "rule_id": "1",
+      "finding_type": "UNRESTRICTED_ALLOW",
+      "title": "Unrestricted any-to-any allow rule",
+      "severity": "CRITICAL",
+      "description": "The active rule permits every protocol and port from every source to every destination in its scope.",
+      "evidence": "INPUT: any -> any, ports=any, action=allow",
+      "recommendation": "Replace the rule with explicit source, destination, protocol, and port requirements; use a default-deny policy for inbound and forwarded traffic.",
+      "risk_points": 28,
+      "likelihood": 5,
+      "impact": 5,
+      "confidence": "HIGH",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "version": "2.0",
+          "control_id": "PR.IR-01",
+          "title": "Networks and environments are protected from unauthorized logical access and usage",
+          "source_url": "https://www.nist.gov/cyberframework"
+        },
+        {
+          "framework": "CIS Controls",
+          "version": "8.1",
+          "control_id": "12.2",
+          "title": "Establish and Maintain a Secure Network Architecture",
+          "source_url": "https://www.cisecurity.org/controls/network-infrastructure-management"
+        },
+        {
+          "framework": "CIS Controls",
+          "version": "8.1",
+          "control_id": "4.4",
+          "title": "Implement and Manage a Firewall on Servers",
+          "source_url": "https://www.cisecurity.org/controls/secure-configuration-of-enterprise-assets-and-software"
+        }
+      ],
+      "related_attack": []
+    },
+    {
+      "finding_id": "PUBLIC_ADMIN_SERVICE:2",
+      "rule_id": "2",
+      "finding_type": "PUBLIC_ADMIN_SERVICE",
+      "title": "Administrative service exposed to all sources",
+      "severity": "HIGH",
+      "description": "The active allow rule exposes SSH (22) to every source address.",
+      "evidence": "INPUT: source=any, destination=192.168.1.10, ports=22",
+      "recommendation": "Restrict management access to a VPN, bastion host, or explicit administrator CIDRs; require MFA where supported.",
+      "risk_points": 20,
+      "likelihood": 4,
+      "impact": 4,
+      "confidence": "HIGH",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "version": "2.0",
+          "control_id": "PR.IR-01",
+          "title": "Networks and environments are protected from unauthorized logical access and usage",
+          "source_url": "https://www.nist.gov/cyberframework"
+        },
+        {
+          "framework": "CIS Controls",
+          "version": "8.1",
+          "control_id": "12.2",
+          "title": "Establish and Maintain a Secure Network Architecture",
+          "source_url": "https://www.cisecurity.org/controls/network-infrastructure-management"
+        },
+        {
+          "framework": "CIS Controls",
+          "version": "8.1",
+          "control_id": "12.3",
+          "title": "Securely Manage Network Infrastructure",
+          "source_url": "https://www.cisecurity.org/controls/network-infrastructure-management"
+        },
+        {
+          "framework": "CIS Controls",
+          "version": "8.1",
+          "control_id": "4.4",
+          "title": "Implement and Manage a Firewall on Servers",
+          "source_url": "https://www.cisecurity.org/controls/secure-configuration-of-enterprise-assets-and-software"
+        }
+      ],
+      "related_attack": [
+        {
+          "technique_id": "T1021.004",
+          "name": "SSH",
+          "relationship": "Exposure may enable adversary remote access; no activity was observed.",
+          "source_url": "https://attack.mitre.org/techniques/T1021/004/"
+        }
+      ]
+    },
+    {
+      "finding_id": "PUBLIC_ADMIN_SERVICE:3",
+      "rule_id": "3",
+      "finding_type": "PUBLIC_ADMIN_SERVICE",
+      "title": "Administrative service exposed to all sources",
+      "severity": "HIGH",
+      "description": "The active allow rule exposes RDP (3389) to every source address.",
+      "evidence": "INPUT: source=any, destination=192.168.1.20, ports=3389",
+      "recommendation": "Restrict management access to a VPN, bastion host, or explicit administrator CIDRs; require MFA where supported.",
+      "risk_points": 20,
+      "likelihood": 4,
+      "impact": 4,
+      "confidence": "HIGH",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "version": "2.0",
+          "control_id": "PR.IR-01",
+          "title": "Networks and environments are protected from unauthorized logical access and usage",
+          "source_url": "https://www.nist.gov/cyberframework"
+        },
+        {
+          "framework": "CIS Controls",
+          "version": "8.1",
+          "control_id": "12.2",
+          "title": "Establish and Maintain a Secure Network Architecture",
+          "source_url": "https://www.cisecurity.org/controls/network-infrastructure-management"
+        },
+        {
+          "framework": "CIS Controls",
+          "version": "8.1",
+          "control_id": "12.3",
+          "title": "Securely Manage Network Infrastructure",
+          "source_url": "https://www.cisecurity.org/controls/network-infrastructure-management"
+        },
+        {
+          "framework": "CIS Controls",
+          "version": "8.1",
+          "control_id": "4.4",
+          "title": "Implement and Manage a Firewall on Servers",
+          "source_url": "https://www.cisecurity.org/controls/secure-configuration-of-enterprise-assets-and-software"
+        }
+      ],
+      "related_attack": [
+        {
+          "technique_id": "T1021.001",
+          "name": "Remote Desktop Protocol",
+          "relationship": "Exposure may enable remote access or lateral movement; no activity was observed.",
+          "source_url": "https://attack.mitre.org/techniques/T1021/001/"
+        }
+      ]
+    },
+    {
+      "finding_id": "PUBLIC_DATABASE_SERVICE:4",
+      "rule_id": "4",
+      "finding_type": "PUBLIC_DATABASE_SERVICE",
+      "title": "Database service exposed to all sources",
+      "severity": "HIGH",
+      "description": "The active allow rule exposes MySQL (3306) to every source address.",
+      "evidence": "INPUT: source=any, destination=192.168.1.30, ports=3306",
+      "recommendation": "Place the database on a private network and allow access only from approved application or administration subnets.",
+      "risk_points": 18,
+      "likelihood": 4,
+      "impact": 4,
+      "confidence": "HIGH",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "version": "2.0",
+          "control_id": "PR.IR-01",
+          "title": "Networks and environments are protected from unauthorized logical access and usage",
+          "source_url": "https://www.nist.gov/cyberframework"
+        },
+        {
+          "framework": "CIS Controls",
+          "version": "8.1",
+          "control_id": "12.2",
+          "title": "Establish and Maintain a Secure Network Architecture",
+          "source_url": "https://www.cisecurity.org/controls/network-infrastructure-management"
+        },
+        {
+          "framework": "CIS Controls",
+          "version": "8.1",
+          "control_id": "12.3",
+          "title": "Securely Manage Network Infrastructure",
+          "source_url": "https://www.cisecurity.org/controls/network-infrastructure-management"
+        },
+        {
+          "framework": "CIS Controls",
+          "version": "8.1",
+          "control_id": "4.4",
+          "title": "Implement and Manage a Firewall on Servers",
+          "source_url": "https://www.cisecurity.org/controls/secure-configuration-of-enterprise-assets-and-software"
+        }
+      ],
+      "related_attack": []
+    },
+    {
+      "finding_id": "SHADOWED_RULE:2",
+      "rule_id": "2",
+      "finding_type": "SHADOWED_RULE",
+      "title": "Rule is fully shadowed by an earlier rule",
+      "severity": "MEDIUM",
+      "description": "Earlier rule 1 fully covers this rule and is evaluated first.",
+      "evidence": "1 (allow) precedes 2 (allow) in chain INPUT.",
+      "recommendation": "Review rule order and intended access. Narrow or move the earlier rule, then remove any unreachable rule through change control.",
+      "risk_points": 6,
+      "likelihood": 3,
+      "impact": 2,
+      "confidence": "HIGH",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "version": "2.0",
+          "control_id": "PR.IR-01",
+          "title": "Networks and environments are protected from unauthorized logical access and usage",
+          "source_url": "https://www.nist.gov/cyberframework"
+        },
+        {
+          "framework": "CIS Controls",
+          "version": "8.1",
+          "control_id": "12.3",
+          "title": "Securely Manage Network Infrastructure",
+          "source_url": "https://www.cisecurity.org/controls/network-infrastructure-management"
+        }
+      ],
+      "related_attack": []
+    },
+    {
+      "finding_id": "SHADOWED_RULE:3",
+      "rule_id": "3",
+      "finding_type": "SHADOWED_RULE",
+      "title": "Rule is fully shadowed by an earlier rule",
+      "severity": "MEDIUM",
+      "description": "Earlier rule 1 fully covers this rule and is evaluated first.",
+      "evidence": "1 (allow) precedes 3 (allow) in chain INPUT.",
+      "recommendation": "Review rule order and intended access. Narrow or move the earlier rule, then remove any unreachable rule through change control.",
+      "risk_points": 6,
+      "likelihood": 3,
+      "impact": 2,
+      "confidence": "HIGH",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "version": "2.0",
+          "control_id": "PR.IR-01",
+          "title": "Networks and environments are protected from unauthorized logical access and usage",
+          "source_url": "https://www.nist.gov/cyberframework"
+        },
+        {
+          "framework": "CIS Controls",
+          "version": "8.1",
+          "control_id": "12.3",
+          "title": "Securely Manage Network Infrastructure",
+          "source_url": "https://www.cisecurity.org/controls/network-infrastructure-management"
+        }
+      ],
+      "related_attack": []
+    },
+    {
+      "finding_id": "SHADOWED_RULE:4",
+      "rule_id": "4",
+      "finding_type": "SHADOWED_RULE",
+      "title": "Rule is fully shadowed by an earlier rule",
+      "severity": "MEDIUM",
+      "description": "Earlier rule 1 fully covers this rule and is evaluated first.",
+      "evidence": "1 (allow) precedes 4 (allow) in chain INPUT.",
+      "recommendation": "Review rule order and intended access. Narrow or move the earlier rule, then remove any unreachable rule through change control.",
+      "risk_points": 6,
+      "likelihood": 3,
+      "impact": 2,
+      "confidence": "HIGH",
+      "standards": [
+        {
+          "framework": "NIST CSF",
+          "version": "2.0",
+          "control_id": "PR.IR-01",
+          "title": "Networks and environments are protected from unauthorized logical access and usage",
+          "source_url": "https://www.nist.gov/cyberframework"
+        },
+        {
+          "framework": "CIS Controls",
+          "version": "8.1",
+          "control_id": "12.3",
+          "title": "Securely Manage Network Infrastructure",
+          "source_url": "https://www.cisecurity.org/controls/network-infrastructure-management"
+        }
+      ],
+      "related_attack": []
+    },
+    {
+      "finding_id": "DISABLED_RULE_HYGIENE:5",
+      "rule_id": "5",
+      "finding_type": "DISABLED_RULE_HYGIENE",
+      "title": "Disabled rule requires lifecycle review",
+      "severity": "INFO",
+      "description": "The rule is inactive and is not treated as an active exposure.",
+      "evidence": "Rule 5 enabled=false",
+      "recommendation": "Confirm ownership and retention requirements, then document or remove the stale rule.",
+      "risk_points": 0,
+      "likelihood": 1,
+      "impact": 1,
+      "confidence": "HIGH",
+      "standards": [
+        {
+          "framework": "CIS Controls",
+          "version": "8.1",
+          "control_id": "12.3",
+          "title": "Securely Manage Network Infrastructure",
+          "source_url": "https://www.cisecurity.org/controls/network-infrastructure-management"
+        }
+      ],
+      "related_attack": []
+    }
+  ],
+  "posture_score": 11,
+  "risk_classification": "CRITICAL",
+  "standards": [
+    {
+      "framework": "NIST CSF",
+      "version": "2.0",
+      "scope": "Rule lifecycle and duplication indicators; Technical review of access scope and exposed services",
+      "status": "ACTION_REQUIRED",
+      "checks_passed": 0,
+      "checks_flagged": 2,
+      "checks": [
+        {
+          "framework": "NIST CSF",
+          "version": "2.0",
+          "control_id": "PR.IR-01",
+          "title": "Networks and environments are protected from unauthorized logical access and usage",
+          "status": "GAP",
+          "evidence_count": 4,
+          "evidence": [
+            "UNRESTRICTED_ALLOW:1",
+            "PUBLIC_ADMIN_SERVICE:2",
+            "PUBLIC_ADMIN_SERVICE:3",
+            "PUBLIC_DATABASE_SERVICE:4"
+          ],
+          "source_url": "https://www.nist.gov/cyberframework"
+        },
+        {
+          "framework": "NIST CSF",
+          "version": "2.0",
+          "control_id": "PR.PS-01",
+          "title": "Configuration management practices are established and applied",
+          "status": "GAP",
+          "evidence_count": 4,
+          "evidence": [
+            "SHADOWED_RULE:2",
+            "SHADOWED_RULE:3",
+            "SHADOWED_RULE:4",
+            "DISABLED_RULE_HYGIENE:5"
+          ],
+          "source_url": "https://www.nist.gov/cyberframework"
+        }
+      ],
+      "disclaimer": "Selected technical alignment checks only; this is not a compliance certification or an assessment of the complete framework."
+    },
+    {
+      "framework": "CIS Controls",
+      "version": "8.1",
+      "scope": "Broad exposure and network-boundary rules; Firewall exposure and least-privilege checks; Management exposure, insecure services, and rule hygiene",
+      "status": "ACTION_REQUIRED",
+      "checks_passed": 0,
+      "checks_flagged": 3,
+      "checks": [
+        {
+          "framework": "CIS Controls",
+          "version": "8.1",
+          "control_id": "4.4",
+          "title": "Implement and Manage a Firewall on Servers",
+          "status": "GAP",
+          "evidence_count": 4,
+          "evidence": [
+            "UNRESTRICTED_ALLOW:1",
+            "PUBLIC_ADMIN_SERVICE:2",
+            "PUBLIC_ADMIN_SERVICE:3",
+            "PUBLIC_DATABASE_SERVICE:4"
+          ],
+          "source_url": "https://www.cisecurity.org/controls/secure-configuration-of-enterprise-assets-and-software"
+        },
+        {
+          "framework": "CIS Controls",
+          "version": "8.1",
+          "control_id": "12.2",
+          "title": "Establish and Maintain a Secure Network Architecture",
+          "status": "GAP",
+          "evidence_count": 1,
+          "evidence": [
+            "UNRESTRICTED_ALLOW:1"
+          ],
+          "source_url": "https://www.cisecurity.org/controls/network-infrastructure-management"
+        },
+        {
+          "framework": "CIS Controls",
+          "version": "8.1",
+          "control_id": "12.3",
+          "title": "Securely Manage Network Infrastructure",
+          "status": "GAP",
+          "evidence_count": 7,
+          "evidence": [
+            "PUBLIC_ADMIN_SERVICE:2",
+            "PUBLIC_ADMIN_SERVICE:3",
+            "PUBLIC_DATABASE_SERVICE:4",
+            "SHADOWED_RULE:2",
+            "SHADOWED_RULE:3",
+            "SHADOWED_RULE:4",
+            "DISABLED_RULE_HYGIENE:5"
+          ],
+          "source_url": "https://www.cisecurity.org/controls/network-infrastructure-management"
+        }
+      ],
+      "disclaimer": "Selected technical alignment checks only; this is not a compliance certification or an assessment of the complete framework."
+    }
+  ],
+  "parser_warnings": [],
+  "methodology": "Deterministic configuration analysis. The posture score is a transparent project-specific prioritization aid, not an industry certification."
+}

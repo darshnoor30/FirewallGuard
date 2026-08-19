@@ -1,0 +1,41 @@
+{
+  "firewall_name": "Hardened Corporate Baseline",
+  "rules": [
+    {
+      "rule_id": "WEB-HTTPS-001",
+      "name": "Allow HTTPS to application gateway",
+      "action": "allow",
+      "protocol": "tcp",
+      "source": "10.0.0.0/24",
+      "destination": "192.168.1.10",
+      "port": "443",
+      "enabled": true,
+      "chain": "INPUT",
+      "description": "Approved application traffic from the corporate subnet"
+    },
+    {
+      "rule_id": "WEB-HTTP-002",
+      "name": "Allow HTTP to redirect service",
+      "action": "allow",
+      "protocol": "tcp",
+      "source": "10.0.0.0/24",
+      "destination": "192.168.1.20",
+      "port": "80",
+      "enabled": true,
+      "chain": "INPUT",
+      "description": "HTTP redirect endpoint for the corporate subnet"
+    },
+    {
+      "rule_id": "ADMIN-SSH-003",
+      "name": "Restrict SSH to administration host",
+      "action": "allow",
+      "protocol": "tcp",
+      "source": "10.0.0.50",
+      "destination": "192.168.1.50",
+      "port": "22",
+      "enabled": true,
+      "chain": "INPUT",
+      "description": "Change-approved administration path"
+    }
+  ]
+}

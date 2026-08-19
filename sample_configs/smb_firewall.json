@@ -1,0 +1,41 @@
+{
+  "firewall_name": "SMB Exposure Case Study",
+  "rules": [
+    {
+      "rule_id": "SMB-001",
+      "name": "Public SMB share",
+      "action": "allow",
+      "protocol": "tcp",
+      "source": "any",
+      "destination": "192.168.1.10",
+      "port": "445",
+      "enabled": true,
+      "chain": "INPUT",
+      "description": "Intentionally vulnerable rule for a defensive lab"
+    },
+    {
+      "rule_id": "SMB-002",
+      "name": "Approved internal SMB share",
+      "action": "allow",
+      "protocol": "tcp",
+      "source": "10.20.0.0/24",
+      "destination": "192.168.1.10",
+      "port": "445",
+      "enabled": true,
+      "chain": "INPUT",
+      "description": "Restricted internal file-sharing path"
+    },
+    {
+      "rule_id": "SMB-003",
+      "name": "Block public NetBIOS",
+      "action": "deny",
+      "protocol": "tcp",
+      "source": "any",
+      "destination": "192.168.1.10",
+      "port": "139",
+      "enabled": true,
+      "chain": "INPUT",
+      "description": "Explicit perimeter deny"
+    }
+  ]
+}

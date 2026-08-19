@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environments
+.venv/
+venv/
+env/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Generated artifacts
+output/*.json
+output/*.csv
+output/pdf/*.pdf
+!output/.gitkeep
+!output/pdf/.gitkeep
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
