@@ -238,7 +238,10 @@ class FirewallConfigParser:
         protocol = self._option(tokens, ("-p", "--protocol"), "any").lower()
         protocol = "any" if protocol == "all" else protocol
         if protocol not in _PROTOCOLS:
-            protocol = "any"
+            raise InvalidFirewallConfigError(
+                f"Unsupported iptables protocol {protocol!r} on line {line_number}; "
+                "cannot safely analyze it as 'any'."
+            )
         source = normalize_address(self._option(tokens, ("-s", "--source"), "any"), "source")
         destination = normalize_address(
             self._option(tokens, ("-d", "--destination"), "any"), "destination"

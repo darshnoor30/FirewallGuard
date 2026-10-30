@@ -99,6 +99,12 @@ class IptablesParserTests(unittest.TestCase):
         with self.assertRaisesRegex(InvalidFirewallConfigError, "Negated"):
             self.parser.parse_text("-A INPUT ! -s 10.0.0.0/8 -j ACCEPT")
 
+    def test_unsupported_protocol_is_not_broadened_to_any(self):
+        for protocol in ("gre", "esp", "47", "typo"):
+            with self.subTest(protocol=protocol):
+                with self.assertRaisesRegex(InvalidFirewallConfigError, "Unsupported iptables protocol"):
+                    self.parser.parse_text(f"-A INPUT -p {protocol} -j ACCEPT")
+
     def test_auto_detection_rejects_unrecognized_text(self):
         with self.assertRaisesRegex(InvalidFirewallConfigError, "No supported"):
             self.parser.parse_text("this is not a firewall configuration")
